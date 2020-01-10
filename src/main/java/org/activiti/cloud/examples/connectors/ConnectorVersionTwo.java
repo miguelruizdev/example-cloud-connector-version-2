@@ -44,7 +44,7 @@ public class ConnectorVersionTwo {
         this.connectorProperties = connectorProperties;
     }
 
-    @StreamListener(value = ConnectorVersionTwoChannels.CONNECTOR_TWO_CONSUMER)
+    @StreamListener(value = ConnectorVersionTwoChannels.CONNECTOR_TWO_CONSUMER, condition = "headers['appVersion']=='${application.version}'")
     public void receive(IntegrationRequest integrationRequest) {
         IntegrationContext integrationContext = integrationRequest.getIntegrationContext();
         Map<String, Object> inBoundVariables = integrationContext.getInBoundVariables();

@@ -30,27 +30,27 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 
 @Component
-@EnableBinding(MoviesDescriptionConnectorChannels.class)
-public class MoviesDescriptionConnector {
+@EnableBinding(ConnectorVersionOneChannels.class)
+public class ConnectorVersionOne {
 
-    private Logger logger = LoggerFactory.getLogger(MoviesDescriptionConnector.class);
+    private Logger logger = LoggerFactory.getLogger(ConnectorVersionOne.class);
 
     private IntegrationResultSender integrationResultSender;
     private ConnectorProperties connectorProperties;
 
-    public MoviesDescriptionConnector(IntegrationResultSender integrationResultSender,
-                                      ConnectorProperties connectorProperties) {
+    public ConnectorVersionOne(IntegrationResultSender integrationResultSender,
+                               ConnectorProperties connectorProperties) {
         this.integrationResultSender = integrationResultSender;
         this.connectorProperties = connectorProperties;
     }
 
-    @StreamListener(value = MoviesDescriptionConnectorChannels.MOVIES_DESCRIPTION_CONSUMER)
+    @StreamListener(value = ConnectorVersionOneChannels.CONNECTOR_ONE_CONSUMER)
     public void receive(IntegrationRequest integrationRequest) {
         IntegrationContext integrationContext = integrationRequest.getIntegrationContext();
         Map<String, Object> inBoundVariables = integrationContext.getInBoundVariables();
         logger.info(">>inbound: " + inBoundVariables);
-        integrationContext.addOutBoundVariable("movieDescription",
-                                               "The Lord of the Rings is an epic high fantasy novel written by English author and scholar J. R. R. Tolkien");
+        integrationContext.addOutBoundVariable("variable",
+                                               "valueFromConnectorVersionOne");
 
         integrationResultSender.send(IntegrationResultBuilder.resultFor(integrationRequest, connectorProperties).buildMessage());
     }

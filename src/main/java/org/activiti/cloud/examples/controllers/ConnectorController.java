@@ -9,7 +9,7 @@ public class ConnectorController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/v1/home")
     public String welcome() {
-        return " { \"welcome\" : \"This is Example Cloud Connector Version 1\"";
+        return " { \"welcome\" : \"This is Example Cloud Connector Version 2\"";
     }
 
 }

@@ -19,11 +19,11 @@ package org.activiti.cloud.examples.connectors;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;
 
-public interface ConnectorVersionOneChannels {
+public interface ConnectorVersionTwoChannels {
 
-    String CONNECTOR_ONE_CONSUMER = "connectorOneConsumer";
+    String CONNECTOR_TWO_CONSUMER = "connectorTwoConsumer";
 
-    @Input(CONNECTOR_ONE_CONSUMER)
-    SubscribableChannel connectorOneConsumer();
+    @Input(CONNECTOR_TWO_CONSUMER)
+    SubscribableChannel connectorTwoConsumer();
 
 }

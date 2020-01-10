@@ -30,27 +30,27 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 
 @Component
-@EnableBinding(ConnectorVersionOneChannels.class)
-public class ConnectorVersionOne {
+@EnableBinding(ConnectorVersionTwoChannels.class)
+public class ConnectorVersionTwo {
 
-    private Logger logger = LoggerFactory.getLogger(ConnectorVersionOne.class);
+    private Logger logger = LoggerFactory.getLogger(ConnectorVersionTwo.class);
 
     private IntegrationResultSender integrationResultSender;
     private ConnectorProperties connectorProperties;
 
-    public ConnectorVersionOne(IntegrationResultSender integrationResultSender,
+    public ConnectorVersionTwo(IntegrationResultSender integrationResultSender,
                                ConnectorProperties connectorProperties) {
         this.integrationResultSender = integrationResultSender;
         this.connectorProperties = connectorProperties;
     }
 
-    @StreamListener(value = ConnectorVersionOneChannels.CONNECTOR_ONE_CONSUMER)
+    @StreamListener(value = ConnectorVersionTwoChannels.CONNECTOR_TWO_CONSUMER)
     public void receive(IntegrationRequest integrationRequest) {
         IntegrationContext integrationContext = integrationRequest.getIntegrationContext();
         Map<String, Object> inBoundVariables = integrationContext.getInBoundVariables();
         logger.info(">>inbound: " + inBoundVariables);
         integrationContext.addOutBoundVariable("variable",
-                                               "valueFromConnectorVersionOne");
+                                               "valueFromConnectorVersionTwo");
 
         integrationResultSender.send(IntegrationResultBuilder.resultFor(integrationRequest, connectorProperties).buildMessage());
     }
